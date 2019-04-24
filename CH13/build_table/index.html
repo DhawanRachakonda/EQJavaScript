@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title>Build Table</title>
+    </head>
+    <body>
+        <div id="mountains">
+
+        </div>
+
+        <script>
+            const MOUNTAINS = [
+                {name: "Kilimanjaro", height: 5895, place: "Tanzania"},
+                {name: "Everest", height: 8848, place: "Nepal"},
+                {name: "Mount Fuji", height: 3776, place: "Japan"},
+                {name: "Vaalserberg", height: 323, place: "Netherlands"},
+                {name: "Denali", height: 6168, place: "United States"},
+                {name: "Popocatepetl", height: 5465, place: "Mexico"},
+                {name: "Mont Blanc", height: 4808, place: "Italy/France"}
+            ];
+            let styles = {
+                "th" : {"textTransform": "capitalize","textAlign" : "center"},
+                "td" : {"textTransform": "capitalize","textAlign" : "right"}
+            }
+            let fields = Object.keys(MOUNTAINS[0]);
+            let tableEle = document.createElement("table");
+            function buildTh(fields) {
+                let trEle = document.createElement("tr");
+                fields.forEach(element => {
+                    let thEle = document.createElement("th");
+                    thEle.textContent = element;
+                    styles["th"] && Object.keys(styles["th"]).forEach(key => {
+                        thEle.style[key] = styles["th"][key]; 
+                    });
+                    trEle.appendChild(thEle);
+                });
+                return trEle;
+            }
+            tableEle.appendChild(buildTh(fields));
+            function buildTd(fields, data, table) {
+                data.forEach(value => {
+                    let trElement = document.createElement("tr");
+                    fields.forEach(element => {
+                        let tdEle = document.createElement("td");
+                        tdEle.textContent = value[element];
+                        styles["td"] && Object.keys(styles["td"]).forEach(key => {
+                            tdEle.style[key] = styles["td"][key]; 
+                        });
+                        trElement.appendChild(tdEle);
+                    });
+                    table.appendChild(trElement);
+                });
+            }
+            buildTd(fields,MOUNTAINS,tableEle);
+            document.querySelector("#mountains").appendChild(tableEle);
+        </script>
+    </body>
+</html>
