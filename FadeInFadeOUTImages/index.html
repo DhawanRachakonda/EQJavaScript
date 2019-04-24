@@ -1,0 +1,95 @@
+<html>
+    <head>
+        <title>Fade In Fade Out</title>
+        <style>
+            .dot {
+                height: 5px;
+                width: 5px;
+                background-color: #bbb;
+                border-radius: 50%;
+                display: inline-block;
+            }
+            .dot.selected {
+                background-color: black;
+            }
+            .image-dots {
+                position: absolute;
+                bottom: 0;
+                left: 200px;
+            }
+
+            .image-fade-in-out {
+                position: relative;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="image-fade-in-out">
+            <img onmouseout="onBlur();" onmouseover="fadeOut();" id="image-fade-in-out" src="https://i8.fnp.com/images/pr/l/butterscotch-cake-half-kg_4.jpg" alt="cake"/>
+            <div class="image-dots" style="display: none;">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+        <script>
+            var imgs = ["https://i8.fnp.com/images/pr/l/butterscotch-cake-half-kg_4.jpg",
+            "https://i9.fnp.com/images/pr/l/happy-birthday-mixed-flowers-arrangement_1.jpg",
+            "https://i7.fnp.com/images/pr/l/personalized-cushion-gift_1.jpg",
+            ];
+            var dots = document.querySelectorAll(".dot");
+            var counter = 0;
+            var imageEle = document.getElementById("image-fade-in-out");
+            var clear = false;
+            var requestAnimationFrameId;
+            function onBlur() {
+                cancelAnimationFrame(requestAnimationFrameId);
+                imageEle.style.opacity = 1;
+                dots[counter].className="dot";
+                counter = 0;
+                imageEle.src = imgs[counter];
+                imageEle.style.display = "block";
+                document.querySelector(".image-dots").style.display = "none";
+            }
+            function fadeIn() {
+                imageEle.style.opacity = 0;
+                imageEle.src = imgs[counter];
+                dots[counter].className="dot selected";
+                if(counter >0)
+                    dots[counter - 1].className="dot";
+                var show = function() {
+                    var val = parseFloat(imageEle.style.opacity);
+                    if (!((val += .01) > 1)) {
+                        imageEle.style.opacity = val;
+                        requestAnimationFrameId = requestAnimationFrame(show);
+                    } else {
+                        fadeOut();
+                    }
+                }
+                requestAnimationFrameId = requestAnimationFrame(show);
+            }
+
+            function fadeOut() {
+                if(document.querySelector(".image-dots").style.display == "none") {
+                    dots[0].className="dot selected";
+                    document.querySelector(".image-dots").style.display = "block";
+                }
+                imageEle.style.opacity = 1;
+                var fade = function() {
+                    if(imageEle.style.opacity != 0) {
+                        imageEle.style.opacity -= 0.01;
+                        requestAnimationFrameId = requestAnimationFrame(fade);
+                    } else {
+                        if(counter +1 == imgs.length) {
+                            dots[counter].className="dot";
+                            counter=-1;
+                        }
+                        counter++;
+                        fadeIn();
+                    }
+                }
+                requestAnimationFrameId = requestAnimationFrame(fade);
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title>Replace Images</title>
+    </head>
+    <body>
+        <p>The <img src="https://i8.fnp.com/images/pr/m/chocolate-truffle-cream-cake.jpg" alt="product1"> in the 
+        <img src="https://i8.fnp.com/images/pr/m/carnations-n-daisies-arrangement.jpg" alt ="product2"></p>
+        <p><button onclick="replaceImages()">Replace</button></p>
+        <p><button onclick="replaceImages1()">Replace2</button></p>
+        <script>
+            function replaceImages() {
+                var x1 = performance.now();
+                var images = document.body.getElementsByTagName("img");
+                for(var i=images.length-1; i>=0; i--) {
+                    var image = images[i];
+                    for(var j=0; j<500; j++) {
+                        image.alt = j;
+                    }
+                    //var text = document.createTextNode(image.alt);
+                    //image.parentElement.replaceChild(text,image);
+                }
+                var x2 = performance.now();
+                console.log("took : ", x2-x1);
+            }
+
+            function replaceImages1() {
+                var x1 = performance.now();
+                var images = document.body.getElementsByTagName("img");
+                for(var i=images.length-1; i>=0; i--) {
+                    var image = images[i];
+                    var clonedImage = image.cloneNode();
+                    for(var j=0; j<500; j++) {
+                        clonedImage.alt = j;
+                    }
+                    // var text = document.createTextNode(clonedImage.alt);
+                    // image.parentElement.replaceChild(text,image);
+                }
+                var x2 = performance.now();
+                console.log("took : ", x2-x1);
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>Replace Images</title>
+    </head>
+    <body>
+        <p>One</p>
+        <p>Two</p>
+        <p>Three</p>
+        <script>
+            var paragraphs = document.getElementsByTagName("p");
+            var newNode = document.createElement("p");
+            newNode.innerText="One and half";
+            document.body.insertBefore(newNode,paragraphs[1]);
+            var newNode1 = document.createElement("p");
+            newNode1.innerText = "four"
+            paragraphs[paragraphs.length - 1].appendChild(newNode1);
+        </script>
+    </body>
+</html>

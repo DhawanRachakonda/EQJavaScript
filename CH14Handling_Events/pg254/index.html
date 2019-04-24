@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>Event Object</title>
+    </head>
+    <body>
+        <button>Click me any way you want</button>
+        <p>Press Ctrl+space to continue</p>
+        <script>
+            var button = document.querySelector("button");
+            button.addEventListener("mousedown", function(event) {
+                if(event.which == 1)
+                    console.log("Left button");
+                else if(event.which == 2)
+                    console.log("Middle button");
+                else if(event.which == 3)
+                    console.log("Right button");
+            });
+            addEventListener("keydown",function(event) {
+                if(event.keyCode == 32 && event.ctrlKey)
+                    console.log("Continuing!");
+            });
+        </script>
+    </body>
+</html>

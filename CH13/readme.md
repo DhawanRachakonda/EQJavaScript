@@ -1,0 +1,1 @@
+Use http-server replace_images -p 3005 to run server and point to specific location.
